@@ -79,30 +79,16 @@ gltfLoader.load(
             if (child.isMesh) {
                 child.material = child.material.clone();
                 child.material.map = monumentColorTexture;
-                child.material.armMap = monumentARMTexture;
+                child.material.aoMap = monumentARMTexture;
                 child.material.metalnessMap = monumentRoughnessTexture;
                 child.material.displacementMap = monumentDisplacementTexture;
                 child.material.normalMap = monumentNormalTexture;
 
-                gui.add(child.rotation, 'y')
-                    .min(-Math.PI)
-                    .max(Math.PI)
-                    .step(0.01)
-                    .name('Monument Rotation Y');
-
                 child.position.set(0, 0, 0);
+
+                gui.addColor(child.material, 'color').name('Monument Color');
             }
         });
-
-        // const model = gltf.scene;
-        // model.position.set(0, 0, 0);
-        // scene.add(model);
-
-        // gui.add(model.rotation, 'y')
-        //     .min(-Math.PI)
-        //     .max(Math.PI)
-        //     .step(0.01)
-        //     .name('Monument Rotation Y');
 
         scene.add(gltf.scene);
     },
