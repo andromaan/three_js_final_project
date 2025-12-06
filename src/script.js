@@ -34,39 +34,42 @@ const gltfLoader = new GLTFLoader();
 const textureLoader = new THREE.TextureLoader();
 
 // Motherland monument texture
-const monumentColorTexture = textureLoader.load('/textures/Motherland/metal_plate_02_diff_2k.jpg');
-const monumentARMTexture = textureLoader.load('/textures/Motherland/metal_plate_02_arm_2k.jpg');
+const monumentColorTexture = textureLoader.load(
+    '/textures/Motherland/Metal055A_2K-JPG_Color.jpg'
+);
 const monumentDisplacementTexture = textureLoader.load(
-    '/textures/Motherland/metal_plate_02_disp_2k.jpg'
+    '/textures/Motherland/Metal055A_2K-JPG_Displacement.jpg'
 );
 const monumentNormalTexture = textureLoader.load(
-    '/textures/Motherland/metal_plate_02_nor_gl_2k.jpg'
+    '/textures/Motherland/Metal055A_2K-JPG_NormalGL.jpg'
 );
 const monumentRoughnessTexture = textureLoader.load(
-    '/textures/Motherland/metal_plate_02_rough_2k.exr'
+    '/textures/Motherland/Metal055A_2K-JPG_Roughness.jpg'
+);
+const monumentMetalnessTexture = textureLoader.load(
+    '/textures/Motherland/Metal055A_2K-JPG_Metalness.jpg'
 );
 
 monumentColorTexture.colorSpace = THREE.SRGBColorSpace;
 
-const monumentRepeatX = 10;
-const monumentRepeatY = 10;
-monumentColorTexture.repeat.set(monumentRepeatX, monumentRepeatY);
-monumentARMTexture.repeat.set(monumentRepeatX, monumentRepeatY);
-monumentDisplacementTexture.repeat.set(monumentRepeatX, monumentRepeatY);
-monumentNormalTexture.repeat.set(monumentRepeatX, monumentRepeatY);
-monumentRoughnessTexture.repeat.set(monumentRepeatX, monumentRepeatY);
+const monumentRepeat = 20;
+monumentColorTexture.repeat.set(monumentRepeat, monumentRepeat);
+monumentDisplacementTexture.repeat.set(monumentRepeat, monumentRepeat);
+monumentNormalTexture.repeat.set(monumentRepeat, monumentRepeat);
+monumentRoughnessTexture.repeat.set(monumentRepeat, monumentRepeat);
+monumentMetalnessTexture.repeat.set(monumentRepeat, monumentRepeat);
 
 monumentColorTexture.wrapS = THREE.RepeatWrapping;
-monumentARMTexture.wrapS = THREE.RepeatWrapping;
 monumentDisplacementTexture.wrapS = THREE.RepeatWrapping;
 monumentNormalTexture.wrapS = THREE.RepeatWrapping;
 monumentRoughnessTexture.wrapS = THREE.RepeatWrapping;
+monumentMetalnessTexture.wrapS = THREE.RepeatWrapping;
 
 monumentColorTexture.wrapT = THREE.RepeatWrapping;
-monumentARMTexture.wrapT = THREE.RepeatWrapping;
 monumentDisplacementTexture.wrapT = THREE.RepeatWrapping;
 monumentNormalTexture.wrapT = THREE.RepeatWrapping;
 monumentRoughnessTexture.wrapT = THREE.RepeatWrapping;
+monumentMetalnessTexture.wrapT = THREE.RepeatWrapping;
 
 /**
  * Historical monument
@@ -79,14 +82,17 @@ gltfLoader.load(
             if (child.isMesh) {
                 child.material = child.material.clone();
                 child.material.map = monumentColorTexture;
-                child.material.aoMap = monumentARMTexture;
-                child.material.metalnessMap = monumentRoughnessTexture;
-                child.material.displacementMap = monumentDisplacementTexture;
+                child.material.metalnessMap = monumentMetalnessTexture;
+                child.material.roughnessMap = monumentRoughnessTexture;
                 child.material.normalMap = monumentNormalTexture;
 
                 child.position.set(0, 0, 0);
 
-                gui.addColor(child.material, 'color').name('Monument Color');
+                gui.add(child.rotation, 'y')
+                    .min(-Math.PI)
+                    .max(Math.PI)
+                    .step(0.01)
+                    .name('Monument Rotation Y');
             }
         });
 
