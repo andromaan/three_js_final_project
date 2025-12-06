@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { Timer } from 'three/addons/misc/Timer.js'
 import GUI from 'lil-gui'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 /**
  * Base
@@ -15,15 +16,29 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
+// GLTF Loader
+const gltfLoader = new GLTFLoader();
+
 /**
- * House
+ * Textures
  */
-// Temporary sphere
-const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(1, 32, 32),
-    new THREE.MeshStandardMaterial({ roughness: 0.7 })
-)
-scene.add(sphere)
+const textureLoader = new THREE.TextureLoader();
+
+/**
+ * Historical monument 
+ */
+// Motherland monument kiyv
+gltfLoader.load('/models/motherland-monument-kyiv.glb', (gltf) =>
+{
+    const model = gltf.scene;
+    model.position.set(0, 0, 0);
+    scene.add(model);
+
+    gui.add(model.rotation, 'y').min(-Math.PI).max(Math.PI).step(0.01).name('Monument Rotation Y');
+}, undefined, (error) =>
+{
+    console.error('An error happened while loading the GLTF model:', error);
+});
 
 /**
  * Lights
@@ -34,7 +49,7 @@ scene.add(ambientLight)
 
 // Directional light
 const directionalLight = new THREE.DirectionalLight('#ffffff', 1.5)
-directionalLight.position.set(3, 2, -8)
+directionalLight.position.set(3, 2, 8)
 scene.add(directionalLight)
 
 /**
