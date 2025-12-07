@@ -15,6 +15,8 @@ export function loadMotherlandMonument(scene, gui) {
                     child.material.roughnessMap = monumentTextures.roughness;
                     child.material.normalMap = monumentTextures.normal;
 
+                    child.castShadow = true;
+                    child.receiveShadow = true;
                     child.position.set(0, 2.385, 0);
 
                     gui.add(child.position, 'y')
@@ -43,6 +45,9 @@ export function loadMonumentStand(scene, gui) {
         (gltf) => {
             gltf.scene.traverse((child) => {
                 if (child.isMesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+
                     // If this is Cylinder1, assign separate textures
                     if (child.name === 'Cylinder1') {
                         const cylinderMaterial = child.material.clone();

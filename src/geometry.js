@@ -20,6 +20,7 @@ export function createFloorGeometry(scene, gui) {
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(20, 20, 100, 100), floorMaterial);
 
     floor.rotation.x = -Math.PI * 0.5;
+    floor.receiveShadow = true;
 
     scene.add(floor);
 }

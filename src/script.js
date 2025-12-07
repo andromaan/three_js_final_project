@@ -24,7 +24,7 @@ const monumentGroup = new THREE.Group();
 scene.add(monumentGroup);
 
 // Setup environment
-setupEnvironment(scene);
+setupEnvironment(scene, gui);
 
 // Load models
 loadMotherlandMonument(monumentGroup, gui);
