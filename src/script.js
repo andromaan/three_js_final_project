@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { Timer } from 'three/addons/misc/Timer.js';
 import GUI from 'lil-gui';
-import { setupEnvironment } from './environment.js';
+import { fogSetup, setupEnvironment } from './environment.js';
 import { loadMotherlandMonument, loadMonumentStand, loadFlowers } from './models.js';
 import { createCamera, createControls } from './camera.js';
 import { createRenderer } from './renderer.js';
@@ -25,6 +25,7 @@ scene.add(monumentGroup);
 
 // Setup environment
 setupEnvironment(scene, gui);
+fogSetup(scene, gui);
 
 // Load models
 loadMotherlandMonument(monumentGroup, gui);

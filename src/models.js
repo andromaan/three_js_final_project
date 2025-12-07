@@ -85,8 +85,8 @@ export function loadFlowers(scene, gui) {
         (gltf) => {
             gltf.scene.traverse((child) => {
                 if (child.isMesh) {
-                    child.castShadow = true;
-                    child.receiveShadow = true;
+                    child.castShadow = false;
+                    child.receiveShadow = false;
 
                     child.scale.set(0.5, 0.5, 0.5);
                 }

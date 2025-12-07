@@ -17,7 +17,7 @@ export function createFloorGeometry(scene, gui) {
         displacementBias: 0.02,
     });
 
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(20, 20, 100, 100), floorMaterial);
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(20, 20, 50, 50), floorMaterial);
 
     floor.rotation.x = -Math.PI * 0.5;
     floor.receiveShadow = true;

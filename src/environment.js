@@ -20,8 +20,8 @@ export function setupEnvironment(scene, gui) {
     directionalLight.shadow.camera.bottom = -10;
     directionalLight.shadow.camera.near = 0.1;
     directionalLight.shadow.camera.far = 50;
-    directionalLight.shadow.mapSize.width = 2048;
-    directionalLight.shadow.mapSize.height = 2048;
+    directionalLight.shadow.mapSize.width = 1024;
+    directionalLight.shadow.mapSize.height = 1024;
     directionalLight.shadow.bias = -0.001;
 
     scene.add(directionalLight);
@@ -33,5 +33,15 @@ export function setupEnvironment(scene, gui) {
         lightFolder.add(directionalLight.position, 'x', -20, 20, 0.1).name('Position X');
         lightFolder.add(directionalLight.position, 'y', 0, 20, 0.1).name('Position Y');
         lightFolder.add(directionalLight.position, 'z', -20, 20, 0.1).name('Position Z');
+    }
+}
+
+export function fogSetup(scene, gui) {
+    scene.fog = new THREE.Fog('#8ca7bf', 1, 40);
+
+    if (gui) {
+        const fogFolder = gui.addFolder('Fog');
+        fogFolder.add(scene.fog, 'near', 0, 20, 0.1).name('Near');
+        fogFolder.add(scene.fog, 'far', 0, 50, 0.1).name('Far');
     }
 }
