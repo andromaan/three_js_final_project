@@ -14,19 +14,12 @@ export function createFloorGeometry(scene, gui) {
         normalMap: floorTextures.normal,
         displacementMap: floorTextures.displacement,
         displacementScale: 0.3,
-        displacementBias: -0.18,
+        displacementBias: 0.02,
     });
 
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(20, 20, 100, 100), floorMaterial);
 
     floor.rotation.x = -Math.PI * 0.5;
-
-    // Add GUI controls for displacementScale and displacementBias
-    if (gui) {
-        const folder = gui.addFolder('Floor Displacement');
-        folder.add(floorMaterial, 'displacementScale', 0, 1, 0.01).name('Displacement Scale');
-        folder.add(floorMaterial, 'displacementBias', -1, 1, 0.01).name('Displacement Bias');
-    }
 
     scene.add(floor);
 }

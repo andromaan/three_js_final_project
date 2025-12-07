@@ -1,5 +1,5 @@
 import { gltfLoader } from './loaders.js';
-import { createMonumentTextures } from './textures.js';
+import { createMonumentTextures, createMotherlandStandTextures } from './textures.js';
 
 export function loadMotherlandMonument(scene, gui) {
     const monumentTextures = createMonumentTextures();
@@ -15,13 +15,13 @@ export function loadMotherlandMonument(scene, gui) {
                     child.material.roughnessMap = monumentTextures.roughness;
                     child.material.normalMap = monumentTextures.normal;
 
-                    child.position.set(0, 0, 0);
+                    child.position.set(0, 2.385, 0);
 
-                    gui.add(child.rotation, 'y')
-                        .min(-Math.PI)
-                        .max(Math.PI)
+                    gui.add(child.position, 'y')
+                        .min(-5)
+                        .max(5)
                         .step(0.01)
-                        .name('Monument Rotation Y');
+                        .name('Monument Y Position');
                 }
             });
 
@@ -35,21 +35,38 @@ export function loadMotherlandMonument(scene, gui) {
 }
 
 export function loadMonumentStand(scene, gui) {
+    const standTextures = createMotherlandStandTextures();
+    const standTexturesRepeat1 = createMotherlandStandTextures(2);
+
     gltfLoader.load(
         '/models/motherland-monument-stand.glb',
         (gltf) => {
             gltf.scene.traverse((child) => {
                 if (child.isMesh) {
-                    // child.material = child.material.clone();
-                    // child.material.map = monumentTextures.color;
-                    // child.material.metalnessMap = monumentTextures.metalness;
-                    // child.material.roughnessMap = monumentTextures.roughness;
-                    // child.material.normalMap = monumentTextures.normal;
-
-                    // child.position.set(0, 0, 0);
+                    // If this is Cylinder1, assign separate textures
+                    if (child.name === 'Cylinder1') {
+                        const cylinderMaterial = child.material.clone();
+                        cylinderMaterial.map = standTexturesRepeat1.color;
+                        cylinderMaterial.displacementMap = standTexturesRepeat1.displacement;
+                        cylinderMaterial.normalMap = standTexturesRepeat1.normal;
+                        cylinderMaterial.metalnessMap = standTexturesRepeat1.metalness;
+                        cylinderMaterial.roughnessMap = standTexturesRepeat1.roughness;
+                        cylinderMaterial.displacementScale = 0.005;
+                        cylinderMaterial.displacementBias = 0.0;
+                        child.material = cylinderMaterial;
+                    } else {
+                        const material = child.material.clone();
+                        material.map = standTextures.color;
+                        material.displacementMap = standTextures.displacement;
+                        material.normalMap = standTextures.normal;
+                        material.metalnessMap = standTextures.metalness;
+                        material.roughnessMap = standTextures.roughness;
+                        material.displacementScale = 0.005;
+                        material.displacementBias = 0.0;
+                        child.material = material;
+                    }
                 }
             });
-
             scene.add(gltf.scene);
         },
         undefined,

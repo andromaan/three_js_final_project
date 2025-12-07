@@ -45,49 +45,6 @@ export function createMonumentTextures() {
     };
 }
 
-// export function createFloorTextures() {
-//     // Floor
-//     const floorAlphaTexture = textureLoader.load('/textures/floor/alpha.webp');
-//     const floorColorTexture = textureLoader.load(
-//         '/textures/floor/coast_sand_rocks/coast_sand_rocks_02_diff_1k.webp'
-//     );
-//     const floorARMTexture = textureLoader.load(
-//         '/textures/floor/coast_sand_rocks/coast_sand_rocks_02_arm_1k.webp'
-//     );
-//     const floorNormalTexture = textureLoader.load(
-//         '/textures/floor/coast_sand_rocks/coast_sand_rocks_02_nor_gl_1k.webp'
-//     );
-//     const floorDisplacementTexture = textureLoader.load(
-//         '/textures/floor/coast_sand_rocks/coast_sand_rocks_02_disp_1k.webp'
-//     );
-
-//     floorColorTexture.colorSpace = THREE.SRGBColorSpace;
-
-//     const floorTextures = [
-//         floorColorTexture,
-//         floorARMTexture,
-//         floorNormalTexture,
-//         floorDisplacementTexture,
-//     ];
-
-//     const floorRepeat = 8;
-
-//     floorTextures.forEach((texture) => {
-//         texture.repeat.set(floorRepeat, floorRepeat);
-//         texture.wrapS = THREE.RepeatWrapping;
-//         texture.wrapT = THREE.RepeatWrapping;
-//     });
-
-//     return {
-//         color: floorColorTexture,
-//         displacement: floorDisplacementTexture,
-//         normal: floorNormalTexture,
-//         alpha: floorAlphaTexture,
-//         arm: floorARMTexture,
-//     };
-// }
-
-
 export function createFloorTextures() {
     // Floor
     const floorAlphaTexture = textureLoader.load('/textures/floor/alpha.webp');
@@ -137,5 +94,51 @@ export function createFloorTextures() {
         ao: floorAOTexture,
         metalness: floorMetalnessTexture,
         roughness: floorRoughnessTexture,
+    };
+}
+
+export function createMotherlandStandTextures(repeat = 4) {
+    const rootPath = '/textures/motherland-stand/MetalPlates004_2K-JPG/';
+
+    const standColorTexture = textureLoader.load(
+        rootPath + 'MetalPlates004_2K-JPG_Color.jpg'
+    );
+    const standNormalTexture = textureLoader.load(
+        rootPath + 'MetalPlates004_2K-JPG_NormalGL.jpg'
+    );
+    const standRoughnessTexture = textureLoader.load(
+        rootPath + 'MetalPlates004_2K-JPG_Roughness.jpg'
+    );
+    const standDisplacementTexture = textureLoader.load(
+        rootPath + 'MetalPlates004_2K-JPG_Displacement.jpg'
+    );
+    const standMetalnessTexture = textureLoader.load(
+        rootPath + 'MetalPlates004_2K-JPG_Metalness.jpg'
+    );
+
+    standColorTexture.colorSpace = THREE.SRGBColorSpace;
+
+    const textures = [
+        standColorTexture,
+        standNormalTexture,
+        standRoughnessTexture,
+        standDisplacementTexture,
+        standMetalnessTexture,
+    ];
+
+    const standRepeat = repeat;
+
+    textures.forEach((texture) => {
+        texture.repeat.set(standRepeat, standRepeat);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+    });
+
+    return {
+        color: standColorTexture,
+        normal: standNormalTexture,
+        roughness: standRoughnessTexture,
+        displacement: standDisplacementTexture,
+        metalness: standMetalnessTexture,
     };
 }
