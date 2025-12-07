@@ -3,19 +3,19 @@ import { textureLoader } from './loaders.js';
 
 export function createMonumentTextures() {
     const monumentColorTexture = textureLoader.load(
-        '/textures/motherland/Metal055A_2K-JPG_Color.jpg'
+        '/textures/motherland-monument/Metal055A_2K-JPG_Color.jpg'
     );
     const monumentDisplacementTexture = textureLoader.load(
-        '/textures/motherland/Metal055A_2K-JPG_Displacement.jpg'
+        '/textures/motherland-monument/Metal055A_2K-JPG_Displacement.jpg'
     );
     const monumentNormalTexture = textureLoader.load(
-        '/textures/motherland/Metal055A_2K-JPG_NormalGL.jpg'
+        '/textures/motherland-monument/Metal055A_2K-JPG_NormalGL.jpg'
     );
     const monumentRoughnessTexture = textureLoader.load(
-        '/textures/motherland/Metal055A_2K-JPG_Roughness.jpg'
+        '/textures/motherland-monument/Metal055A_2K-JPG_Roughness.jpg'
     );
     const monumentMetalnessTexture = textureLoader.load(
-        '/textures/motherland/Metal055A_2K-JPG_Metalness.jpg'
+        '/textures/motherland-monument/Metal055A_2K-JPG_Metalness.jpg'
     );
 
     monumentColorTexture.colorSpace = THREE.SRGBColorSpace;

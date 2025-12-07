@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 export function createCamera(sizes) {
     const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
-    camera.position.set(6, 6, 6);
+    camera.position.set(4, 2, 5);
     return camera;
 }
 

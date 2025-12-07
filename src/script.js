@@ -73,6 +73,8 @@ scene.add(camera);
 
 // Controls
 const controls = createControls(camera, canvas);
+controls.target.copy(new THREE.Vector3(0, 3, 0));
+controls.update();
 
 /**
  * Renderer
