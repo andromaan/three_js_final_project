@@ -33,3 +33,28 @@ export function loadMotherlandMonument(scene, gui) {
         }
     );
 }
+
+export function loadMonumentStand(scene, gui) {
+    gltfLoader.load(
+        '/models/motherland-monument-stand.glb',
+        (gltf) => {
+            gltf.scene.traverse((child) => {
+                if (child.isMesh) {
+                    // child.material = child.material.clone();
+                    // child.material.map = monumentTextures.color;
+                    // child.material.metalnessMap = monumentTextures.metalness;
+                    // child.material.roughnessMap = monumentTextures.roughness;
+                    // child.material.normalMap = monumentTextures.normal;
+
+                    // child.position.set(0, 0, 0);
+                }
+            });
+
+            scene.add(gltf.scene);
+        },
+        undefined,
+        (error) => {
+            console.error('An error happened while loading the GLTF model:', error);
+        }
+    );
+}

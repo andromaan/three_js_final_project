@@ -2,9 +2,10 @@ import * as THREE from 'three';
 import { Timer } from 'three/addons/misc/Timer.js';
 import GUI from 'lil-gui';
 import { setupEnvironment } from './environment.js';
-import { loadMotherlandMonument } from './models.js';
+import { loadMotherlandMonument, loadMonumentStand } from './models.js';
 import { createCamera, createControls } from './camera.js';
 import { createRenderer } from './renderer.js';
+import { createFloorGeometry } from './geometry.js';
 
 /**
  * Base
@@ -18,11 +19,19 @@ const canvas = document.querySelector('canvas.webgl');
 // Scene
 const scene = new THREE.Scene();
 
+// Group
+const monumentGroup = new THREE.Group();
+scene.add(monumentGroup);
+
 // Setup environment
 setupEnvironment(scene);
 
 // Load models
-loadMotherlandMonument(scene, gui);
+loadMotherlandMonument(monumentGroup, gui);
+loadMonumentStand(monumentGroup, gui);
+
+// Floor
+createFloorGeometry(scene, gui);
 
 /**
  * Sizes
