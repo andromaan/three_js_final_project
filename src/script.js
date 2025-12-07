@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { Timer } from 'three/addons/misc/Timer.js';
 import GUI from 'lil-gui';
 import { setupEnvironment } from './environment.js';
-import { loadMotherlandMonument, loadMonumentStand } from './models.js';
+import { loadMotherlandMonument, loadMonumentStand, loadFlowers } from './models.js';
 import { createCamera, createControls } from './camera.js';
 import { createRenderer } from './renderer.js';
 import { createFloorGeometry } from './geometry.js';
@@ -30,8 +30,17 @@ setupEnvironment(scene, gui);
 loadMotherlandMonument(monumentGroup, gui);
 loadMonumentStand(monumentGroup, gui);
 
+gui.add(monumentGroup.rotation, 'y')
+    .min(-Math.PI)
+    .max(Math.PI)
+    .step(0.01)
+    .name('Monument Rotation Y');
+
 // Floor
 createFloorGeometry(scene, gui);
+
+// Load flowers
+loadFlowers(scene, gui);
 
 /**
  * Sizes

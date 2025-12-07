@@ -18,12 +18,6 @@ export function loadMotherlandMonument(scene, gui) {
                     child.castShadow = true;
                     child.receiveShadow = true;
                     child.position.set(0, 2.385, 0);
-
-                    gui.add(child.position, 'y')
-                        .min(-5)
-                        .max(5)
-                        .step(0.01)
-                        .name('Monument Y Position');
                 }
             });
 
@@ -38,7 +32,7 @@ export function loadMotherlandMonument(scene, gui) {
 
 export function loadMonumentStand(scene, gui) {
     const standTextures = createMotherlandStandTextures();
-    const standTexturesRepeat1 = createMotherlandStandTextures(2);
+    const standTexturesRepeat1 = createMotherlandStandTextures(1.5);
 
     gltfLoader.load(
         '/models/motherland-monument-stand.glb',
@@ -58,6 +52,8 @@ export function loadMonumentStand(scene, gui) {
                         cylinderMaterial.roughnessMap = standTexturesRepeat1.roughness;
                         cylinderMaterial.displacementScale = 0.005;
                         cylinderMaterial.displacementBias = 0.0;
+                        cylinderMaterial.metalness = 0.5;
+                        cylinderMaterial.roughness = 0.8;
                         child.material = cylinderMaterial;
                     } else {
                         const material = child.material.clone();
@@ -68,6 +64,8 @@ export function loadMonumentStand(scene, gui) {
                         material.roughnessMap = standTextures.roughness;
                         material.displacementScale = 0.005;
                         material.displacementBias = 0.0;
+                        material.metalness = 0.5;
+                        material.roughness = 0.8;
                         child.material = material;
                     }
                 }
@@ -79,4 +77,59 @@ export function loadMonumentStand(scene, gui) {
             console.error('An error happened while loading the GLTF model:', error);
         }
     );
+}
+
+export function loadFlowers(scene, gui) {
+    gltfLoader.load(
+        '/models/flowers.glb',
+        (gltf) => {
+            gltf.scene.traverse((child) => {
+                if (child.isMesh) {
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+
+                    child.scale.set(0.5, 0.5, 0.5);
+                }
+
+                const amount = 50;
+                placeRandomFlowers('periwinkle_plant_01_LOD0', child, scene, amount);
+                placeRandomFlowers('periwinkle_plant_02_LOD0', child, scene, amount);
+                placeRandomFlowers('periwinkle_plant_03_LOD0', child, scene, amount);
+                placeRandomFlowers('periwinkle_plant_04_LOD0', child, scene, amount);
+                placeRandomFlowers('periwinkle_plant_05_LOD0', child, scene, amount);
+                placeRandomFlowers('periwinkle_plant_06_LOD0', child, scene, amount);
+            });
+            scene.add(gltf.scene);
+        },
+        undefined,
+        (error) => {
+            console.error('An error happened while loading the GLTF model:', error);
+        }
+    );
+}
+
+function placeRandomFlowers(name, child, scene, amount = 20) {
+    if (child.name === name) {
+        for (let i = 0; i < amount; i++) {
+            const flower = child.clone();
+            flower.material = child.material.clone();
+
+            // Coordinates
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 2 / 2 + 1 + Math.random() * 4;
+            const x = Math.sin(angle) * radius;
+            const z = Math.cos(angle) * radius;
+
+            // Mesh
+            flower.position.x = x;
+            flower.position.z = z;
+
+            flower.rotation.y = (Math.random() - 0.5) * 0.4;
+            flower.rotation.z = (Math.random() - 0.5) * 0.4;
+            flower.rotation.x = (Math.random() - 0.5) * 0.4;
+
+            // Add to the graves group
+            scene.add(flower);
+        }
+    }
 }
