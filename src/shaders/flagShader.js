@@ -1,34 +1,6 @@
 import * as THREE from 'three';
-
-const vertexShader = /* glsl */ `
-    uniform float uTime;
-    uniform float uAmplitude;
-    uniform float uFrequency;
-    uniform float uSpeed;
-
-    varying vec2 vUv;
-
-    void main() {
-        vUv = uv;
-        vec3 pos = position;
-        float wave = sin(pos.y * uFrequency + uTime * uSpeed) * uAmplitude;
-        wave += sin(pos.x * uFrequency * 0.5 + uTime * uSpeed * 1.5) * (uAmplitude * 0.5);
-        pos.z += wave;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-    }
-`;
-
-const fragmentShader = /* glsl */ `
-    varying vec2 vUv;
-
-    void main() {
-        vec3 topColor = vec3(0.07, 0.38, 0.85);
-        vec3 bottomColor = vec3(1.0, 0.85, 0.0);
-        float mixFactor = smoothstep(0.45, 0.55, vUv.y);
-        vec3 color = mix(bottomColor, topColor, mixFactor);
-        gl_FragColor = vec4(color, 1.0);
-    }
-`;
+import vertexShader from './flagVertex.glsl';
+import fragmentShader from './flagFragment.glsl';
 
 export function createFlagShader(gui) {
     const geometry = new THREE.PlaneGeometry(4, 2.2, 128, 64);
