@@ -15,6 +15,8 @@ import { createFlagShader } from './shaders/flagShader.js';
 // Debug
 const gui = new GUI();
 
+gui.close();
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
 
