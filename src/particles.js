@@ -13,7 +13,7 @@ export function createParticles(scene, gui) {
         const phi = Math.random() * Math.PI;
 
         positions[i] = radius * Math.sin(phi) * Math.cos(theta);
-        positions[i + 1] = Math.random() * 20 - 1; // Y position
+        positions[i + 1] = Math.random() * 15 - 1; // Y position
         positions[i + 2] = radius * Math.sin(phi) * Math.sin(theta);
 
         // Initialize sizes
