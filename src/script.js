@@ -7,6 +7,7 @@ import { createCamera, createControls } from './camera.js';
 import { createRenderer } from './renderer.js';
 import { createFloorGeometry } from './geometry.js';
 import { createParticles, animateParticles } from './particles.js';
+import { createFlagShader } from './shaders/flagShader.js';
 
 /**
  * Base
@@ -46,6 +47,10 @@ loadFlowers(scene, gui);
 
 // Create particles
 const particles = createParticles(scene, gui);
+
+// Create custom shader flag
+const flagShader = createFlagShader(gui);
+scene.add(flagShader.mesh);
 
 /**
  * Sizes
@@ -97,6 +102,11 @@ const tick = () => {
 
     // Animate particles
     animateParticles(particles, elapsedTime);
+
+    // Update shader uniforms
+    if (flagShader) {
+        flagShader.uniforms.uTime.value = elapsedTime;
+    }
 
     // Update controls
     controls.update();
