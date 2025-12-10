@@ -88,16 +88,14 @@ export function loadFlowers(scene, gui) {
                     child.castShadow = false;
                     child.receiveShadow = false;
 
-                    child.scale.set(0.5, 0.5, 0.5);
+                    const scaleFactor = 0.02;
+
+                    child.scale.set(scaleFactor, scaleFactor, scaleFactor);
                 }
 
-                const amount = 50;
-                placeRandomFlowers('periwinkle_plant_01_LOD0', child, scene, amount);
-                placeRandomFlowers('periwinkle_plant_02_LOD0', child, scene, amount);
-                placeRandomFlowers('periwinkle_plant_03_LOD0', child, scene, amount);
-                placeRandomFlowers('periwinkle_plant_04_LOD0', child, scene, amount);
-                placeRandomFlowers('periwinkle_plant_05_LOD0', child, scene, amount);
-                placeRandomFlowers('periwinkle_plant_06_LOD0', child, scene, amount);
+                const amount = 100;
+                placeRandomFlowers('yellow_flower', child, scene, amount);
+                placeRandomFlowers('blue_flower', child, scene, amount);
             });
             scene.add(gltf.scene);
         },
@@ -112,7 +110,9 @@ function placeRandomFlowers(name, child, scene, amount = 20) {
     if (child.name === name) {
         for (let i = 0; i < amount; i++) {
             const flower = child.clone();
-            flower.material = child.material.clone();
+
+            const scaleFactor = 0.017;
+            flower.scale.set(scaleFactor, scaleFactor, scaleFactor);
 
             // Coordinates
             const angle = Math.random() * Math.PI * 2;
@@ -124,7 +124,7 @@ function placeRandomFlowers(name, child, scene, amount = 20) {
             flower.position.x = x;
             flower.position.z = z;
 
-            flower.rotation.y = (Math.random() - 0.5) * 0.4;
+            flower.rotation.y = Math.random() * Math.PI * 2;
             flower.rotation.z = (Math.random() - 0.5) * 0.4;
             flower.rotation.x = (Math.random() - 0.5) * 0.4;
 

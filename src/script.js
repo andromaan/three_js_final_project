@@ -6,6 +6,7 @@ import { loadMotherlandMonument, loadMonumentStand, loadFlowers } from './models
 import { createCamera, createControls } from './camera.js';
 import { createRenderer } from './renderer.js';
 import { createFloorGeometry } from './geometry.js';
+import { createParticles, animateParticles } from './particles.js';
 
 /**
  * Base
@@ -42,6 +43,9 @@ createFloorGeometry(scene, gui);
 
 // Load flowers
 loadFlowers(scene, gui);
+
+// Create particles
+const particles = createParticles(scene, gui);
 
 /**
  * Sizes
@@ -90,6 +94,9 @@ const tick = () => {
     // Timer
     timer.update();
     const elapsedTime = timer.getElapsed();
+
+    // Animate particles
+    animateParticles(particles, elapsedTime);
 
     // Update controls
     controls.update();
