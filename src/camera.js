@@ -10,5 +10,7 @@ export function createCamera(sizes) {
 export function createControls(camera, canvas) {
     const controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true;
+    controls.minDistance = 3;
+    controls.maxDistance = 20;
     return controls;
 }
