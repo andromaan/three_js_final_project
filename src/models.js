@@ -17,7 +17,7 @@ export function loadMotherlandMonument(scene, gui) {
 
                     child.castShadow = true;
                     child.receiveShadow = true;
-                    child.position.set(0, 2.385, 0);
+                    child.position.set(0, 2.11, 0);
                 }
             });
 
@@ -42,7 +42,6 @@ export function loadMonumentStand(scene, gui) {
                     child.castShadow = true;
                     child.receiveShadow = true;
 
-                    // If this is Cylinder1, assign separate textures
                     if (child.name === 'Cylinder1') {
                         const cylinderMaterial = child.material.clone();
                         cylinderMaterial.map = standTexturesRepeat1.color;
